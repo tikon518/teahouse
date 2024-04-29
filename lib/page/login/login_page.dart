@@ -181,21 +181,23 @@ mixin LoginBLoC on State<LoginPage> {
   }
 
   loginIn() async {
-    Fluttertoast.showToast(
-        msg: GSYLocalizations.i18n(context)!.Login_deprecated,
-        gravity: ToastGravity.CENTER,
-        toastLength: Toast.LENGTH_LONG);
-    return;
-    // if (_userName == null || _userName.isEmpty) {
-    //   return;
-    // }
-    // if (_password == null || _password.isEmpty) {
-    //   return;
-    // }
-    //
-    // ///通过 redux 去执行登陆流程
-    // StoreProvider.of<GSYState>(context)
-    //     .dispatch(LoginAction(context, _userName, _password));
+    // Fluttertoast.showToast(
+    //     msg: GSYLocalizations.i18n(context)!.Login_deprecated,
+    //     gravity: ToastGravity.CENTER,
+    //     toastLength: Toast.LENGTH_LONG);
+    // return;
+
+    if (_userName?.isEmpty ?? true) {
+      return;
+    }
+
+    if (_password?.isEmpty ?? true) {
+      return;
+    }
+
+    ///通过 redux 去执行登陆流程
+    StoreProvider.of<GSYState>(context)
+        .dispatch(LoginAction(context, _userName, _password));
   }
 
   oauthLogin() async {
@@ -204,7 +206,8 @@ mixin LoginBLoC on State<LoginPage> {
 
     if (code != null && code.length > 0) {
       ///通过 redux 去执行登陆流程
-      StoreProvider.of<GSYState>(context).dispatch(OAuthAction(context, code));
+      StoreProvider.of<GSYState>(context)
+          .dispatch(OAuthAction(context, code));
     }
   }
 }

@@ -106,7 +106,7 @@ class _WelcomePageState extends State<WelcomePage> {
                             StateMachineController.fromArtboard(arb, "birb");
                         var smi = controller?.findInput<bool>("dance");
                         arb.addController(controller!);
-                        smi?.value == true;
+                        smi?.value = true;
                       },
                     ),
                   ),

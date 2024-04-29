@@ -59,7 +59,8 @@ class GSYStringEn extends GSYStringBase {
   String Login_out = "Logout";
 
   @override
-  String Login_deprecated = "The API via password authentication will remove on November 13, 2020 by Github";
+  String Login_deprecated =
+      "The API via password authentication will remove on November 13, 2020 by Github";
 
   @override
   String home_reply = "Feedback";
@@ -115,7 +116,8 @@ class GSYStringEn extends GSYStringBase {
   @override
   String network_error_404 = "Http 404";
   @override
-  String network_error_422 = "Request Body Error，Please Check Github ClientId or Account/PW";
+  String network_error_422 =
+      "Request Body Error，Please Check Github ClientId or Account/PW";
   @override
   String network_error_timeout = "Http timeout";
   @override
@@ -123,7 +125,8 @@ class GSYStringEn extends GSYStringBase {
   @override
   String network_error = "network error";
   @override
-  String github_refused = "Github Api Error[OS Error: Connection refused]. Please switch networks or try again later ";
+  String github_refused =
+      "Github Api Error[OS Error: Connection refused]. Please switch networks or try again later ";
   @override
   String load_more_not = "nothing";
   @override
