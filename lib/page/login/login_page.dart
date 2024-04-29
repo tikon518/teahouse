@@ -41,9 +41,9 @@ class _LoginPageState extends State<LoginPage> with LoginBLoC {
         body: Stack(
           children: <Widget>[
             // 动态背景
-            Positioned.fill(
-              child: AnimatedBackground(),
-            ),
+            // Positioned.fill(
+            //   child: AnimatedBackground(),
+            // ),
             // Positioned.fill(
             //   child: ParticlesWidget(30), // 例子效果，暂时不要了
             // ),
@@ -61,94 +61,104 @@ class _LoginPageState extends State<LoginPage> with LoginBLoC {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
+                padding: EdgeInsets.zero, // 移除边距
                 width: double.infinity,
                 color: Colors.transparent, // 使背景图透过来
                 child: SingleChildScrollView(
                   child: Card(
-                    elevation: 5.0,
+                    // elevation: 5.0,
+                    margin: EdgeInsets.zero, // 移除边距
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero, // 使边框与父容器紧密相连
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30.0), // 左上角圆角
+                        topRight: Radius.circular(30.0), // 右上角圆角
+                      ),
                     ),
                     color: GSYColors.cardWhite,
-                    child: Padding(
-                      padding: const EdgeInsets.all(30.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Text(
-                          GSYLocalizations.i18n(context)!
-                              .login_text,
-                          style: TextStyle(
-                            fontSize: 24.0,
-                            fontWeight: FontWeight.w600,
-                            color: GSYColors.titleTextColor,
-                          )),
-                          Padding(padding: EdgeInsets.all(10.0)),
-                          GSYInputWidget(
-                            hintText: GSYLocalizations.i18n(context)!
-                                .login_username_hint_text,
-                            iconData: GSYICons.LOGIN_USER,
-                            onChanged: (String value) {
-                              _userName = value;
-                            },
-                            controller: userController,
-                          ),
-                          Padding(padding: EdgeInsets.all(10.0)),
-                          GSYInputWidget(
-                            hintText: GSYLocalizations.i18n(context)!
-                                .login_password_hint_text,
-                            iconData: GSYICons.LOGIN_PW,
-                            obscureText: true,
-                            onChanged: (String value) {
-                              _password = value;
-                            },
-                            controller: pwController,
-                          ),
-                          Padding(padding: EdgeInsets.all(10.0)),
-                          Container(
-                            height: 50,
-                            child: Row(
-                              children: <Widget>[
-                                Flexible(
-                                  child: GSYFlexButton(
-                                    text: GSYLocalizations.i18n(context)!
-                                        .login_text,
-                                    color: Theme.of(context).primaryColor,
-                                    textColor: GSYColors.textWhite,
-                                    fontSize: 16,
-                                    onPress: loginIn,
-                                  ),
-                                ),
-                                SizedBox(width: 10),
-                                Flexible(
-                                  child: GSYFlexButton(
-                                    text: GSYLocalizations.i18n(context)!
-                                        .oauth_text,
-                                    color: Theme.of(context).primaryColor,
-                                    textColor: GSYColors.textWhite,
-                                    fontSize: 16,
-                                    onPress: oauthLogin,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(padding: EdgeInsets.all(15.0)),
-                          InkWell(
-                            onTap: () {
-                              CommonUtils.showLanguageDialog(context);
-                            },
-                            child: Text(
+                    child: SizedBox(
+                      width: double.infinity, // 设置登录框的宽度
+                      height: 800, // 设置登录框的高度
+                      child: Padding(
+                        padding: const EdgeInsets.all(30.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Text(
                               GSYLocalizations.i18n(context)!
-                                  .switch_language,
+                                  .login_text,
                               style: TextStyle(
-                                color: GSYColors.subTextColor,
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.w600,
+                                color: GSYColors.titleTextColor,
                               ),
                             ),
-                          ),
-                          Padding(padding: EdgeInsets.all(15.0)),
-                        ],
+                            Padding(padding: EdgeInsets.all(10.0)),
+                            GSYInputWidget(
+                              hintText: GSYLocalizations.i18n(context)!
+                                  .login_username_hint_text,
+                              iconData: GSYICons.LOGIN_USER,
+                              onChanged: (String value) {
+                                _userName = value;
+                              },
+                              controller: userController,
+                            ),
+                            Padding(padding: EdgeInsets.all(10.0)),
+                            GSYInputWidget(
+                              hintText: GSYLocalizations.i18n(context)!
+                                  .login_password_hint_text,
+                              iconData: GSYICons.LOGIN_PW,
+                              obscureText: true,
+                              onChanged: (String value) {
+                                _password = value;
+                              },
+                              controller: pwController,
+                            ),
+                            Padding(padding: EdgeInsets.all(10.0)),
+                            Container(
+                              height: 50,
+                              child: Row(
+                                children: <Widget>[
+                                  Flexible(
+                                    child: GSYFlexButton(
+                                      text: GSYLocalizations.i18n(context)!
+                                          .login_text,
+                                      color: Theme.of(context).primaryColor,
+                                      textColor: GSYColors.textWhite,
+                                      fontSize: 16,
+                                      onPress: loginIn,
+                                    ),
+                                  ),
+                                  SizedBox(width: 10),
+                                  Flexible(
+                                    child: GSYFlexButton(
+                                      text: GSYLocalizations.i18n(context)!
+                                          .oauth_text,
+                                      color: Theme.of(context).primaryColor,
+                                      textColor: GSYColors.textWhite,
+                                      fontSize: 16,
+                                      onPress: oauthLogin,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(padding: EdgeInsets.all(15.0)),
+                            InkWell(
+                              onTap: () {
+                                CommonUtils.showLanguageDialog(context);
+                              },
+                              child: Text(
+                                GSYLocalizations.i18n(context)!
+                                    .switch_language,
+                                style: TextStyle(
+                                  color: GSYColors.subTextColor,
+                                ),
+                              ),
+                            ),
+                            Padding(padding: EdgeInsets.all(15.0)),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -161,6 +171,7 @@ class _LoginPageState extends State<LoginPage> with LoginBLoC {
     );
   }
 }
+
 
 
 mixin LoginBLoC on State<LoginPage> {
