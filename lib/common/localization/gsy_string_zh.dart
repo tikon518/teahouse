@@ -50,7 +50,7 @@ class GSYStringZh extends GSYStringBase {
   String option_share_copy_success = "已经复制到粘贴板";
 
   @override
-  String login_text = "账号登录";
+  String login_text = "登录";
 
   @override
   String oauth_text = "安全登陆";

@@ -38,6 +38,7 @@ class GSYColors {
   static const Color actionBlue = Color(0xff267aff);
   static const Color subTextColor = Color(0xff959595);
   static const Color subLightTextColor = Color(0xffc4c4c4);
+  static const Color titleTextColor = Color(0xff090909);
 
   static const Color mainBackgroundColor = miWhite;
 

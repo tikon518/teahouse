@@ -32,42 +32,60 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> with LoginBLoC {
   @override
   Widget build(BuildContext context) {
-    /// 触摸收起键盘
-    return new GestureDetector(
+    return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
         FocusScope.of(context).requestFocus(new FocusNode());
       },
       child: Scaffold(
-        body: new Container(
-          color: Theme.of(context).primaryColor,
-          child: Stack(children: <Widget>[
-            Positioned.fill(child: AnimatedBackground()),
-            Positioned.fill(child: ParticlesWidget(30)),
-            new Center(
-              ///防止overFlow的现象
-              child: SafeArea(
-                ///同时弹出键盘不遮挡
+        body: Stack(
+          children: <Widget>[
+            // 动态背景
+            Positioned.fill(
+              child: AnimatedBackground(),
+            ),
+            // Positioned.fill(
+            //   child: ParticlesWidget(30), // 例子效果，暂时不要了
+            // ),
+            // 背景图
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: Image.asset(
+                GSYICons.DEFAULT_USER_ICON, // 替换为你的背景图路径
+                fit: BoxFit.fill, // 让背景图填充整个宽度
+              ),
+            ),
+            // 登录框
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                width: double.infinity,
+                color: Colors.transparent, // 使背景图透过来
                 child: SingleChildScrollView(
-                  child: new Card(
+                  child: Card(
                     elevation: 5.0,
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero, // 使边框与父容器紧密相连
+                    ),
                     color: GSYColors.cardWhite,
-                    margin: const EdgeInsets.only(left: 30.0, right: 30.0),
-                    child: new Padding(
-                      padding: new EdgeInsets.only(
-                          left: 30.0, top: 40.0, right: 30.0, bottom: 0.0),
-                      child: new Column(
+                    child: Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          new Image(
-                              image: new AssetImage(GSYICons.DEFAULT_USER_ICON),
-                              width: 90.0,
-                              height: 90.0),
-                          new Padding(padding: new EdgeInsets.all(10.0)),
-                          new GSYInputWidget(
+                          Text(
+                          GSYLocalizations.i18n(context)!
+                              .login_text,
+                          style: TextStyle(
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.w600,
+                            color: GSYColors.titleTextColor,
+                          )),
+                          Padding(padding: EdgeInsets.all(10.0)),
+                          GSYInputWidget(
                             hintText: GSYLocalizations.i18n(context)!
                                 .login_username_hint_text,
                             iconData: GSYICons.LOGIN_USER,
@@ -76,8 +94,8 @@ class _LoginPageState extends State<LoginPage> with LoginBLoC {
                             },
                             controller: userController,
                           ),
-                          new Padding(padding: new EdgeInsets.all(10.0)),
-                          new GSYInputWidget(
+                          Padding(padding: EdgeInsets.all(10.0)),
+                          GSYInputWidget(
                             hintText: GSYLocalizations.i18n(context)!
                                 .login_password_hint_text,
                             iconData: GSYICons.LOGIN_PW,
@@ -87,13 +105,13 @@ class _LoginPageState extends State<LoginPage> with LoginBLoC {
                             },
                             controller: pwController,
                           ),
-                          new Padding(padding: new EdgeInsets.all(10.0)),
+                          Padding(padding: EdgeInsets.all(10.0)),
                           Container(
                             height: 50,
                             child: Row(
                               children: <Widget>[
-                                new Expanded(
-                                  child: new GSYFlexButton(
+                                Flexible(
+                                  child: GSYFlexButton(
                                     text: GSYLocalizations.i18n(context)!
                                         .login_text,
                                     color: Theme.of(context).primaryColor,
@@ -102,11 +120,9 @@ class _LoginPageState extends State<LoginPage> with LoginBLoC {
                                     onPress: loginIn,
                                   ),
                                 ),
-                                new SizedBox(
-                                  width: 10,
-                                ),
-                                new Expanded(
-                                  child: new GSYFlexButton(
+                                SizedBox(width: 10),
+                                Flexible(
+                                  child: GSYFlexButton(
                                     text: GSYLocalizations.i18n(context)!
                                         .oauth_text,
                                     color: Theme.of(context).primaryColor,
@@ -118,38 +134,40 @@ class _LoginPageState extends State<LoginPage> with LoginBLoC {
                               ],
                             ),
                           ),
-                          new Padding(padding: new EdgeInsets.all(15.0)),
+                          Padding(padding: EdgeInsets.all(15.0)),
                           InkWell(
                             onTap: () {
                               CommonUtils.showLanguageDialog(context);
                             },
                             child: Text(
-                              GSYLocalizations.i18n(context)!.switch_language,
-                              style: TextStyle(color: GSYColors.subTextColor),
+                              GSYLocalizations.i18n(context)!
+                                  .switch_language,
+                              style: TextStyle(
+                                color: GSYColors.subTextColor,
+                              ),
                             ),
                           ),
-                          new Padding(padding: new EdgeInsets.all(15.0)),
+                          Padding(padding: EdgeInsets.all(15.0)),
                         ],
                       ),
                     ),
                   ),
                 ),
               ),
-            )
-          ]),
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
+
 mixin LoginBLoC on State<LoginPage> {
   final TextEditingController userController = new TextEditingController();
-
   final TextEditingController pwController = new TextEditingController();
 
   String? _userName = "";
-
   String? _password = "";
 
   @override
